@@ -110,8 +110,8 @@ def get_all_second_hand_housing_sh_Fang():
                 house_url = base_url + house_url_extend
                 house_title = info.find('p', class_="title").text.strip()
                 house_object = create_House_object(house_url, house_title)
-                print(house_object)
                 house_list.append(house_object)
+                print(house_object)
             except:
                 pass
         try:
@@ -126,4 +126,8 @@ def get_all_second_hand_housing_sh_Fang():
 if __name__ == '__main__':
     house_lst = get_all_second_hand_housing_sh_Fang()
     print(len(house_lst))
+    outfile = open('house_lst.json', 'w')
+    house_lst_str = json.dumps(house_lst, indent=2)
+    outfile.write(house_lst_str)
+    outfile.close()
 
