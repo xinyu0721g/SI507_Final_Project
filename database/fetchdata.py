@@ -106,7 +106,7 @@ def get_one_page_second_hand_housing_sh_Fang(cache_fname_individual, house_divs)
             house_title = info.find('p', class_="title").text.strip()
             house_object = create_House_object_from_cache(cache_fname_individual, house_url, house_title)
             house_lst.append(house_object)
-            print(house_object)
+            # print(house_object)
         except:
             pass
     return house_lst

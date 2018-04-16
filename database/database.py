@@ -276,5 +276,33 @@ def db_main(db_name=DB_NAME):
 
 
 if __name__ == '__main__':
-    # db_test()
-    db_main()
+
+    while True:
+        message = '''
+    Database exists. Do you want to rebuild database?(y/n)
+    '''
+        option = input(message)
+        if option.strip().lower() == 'y':
+            message = '''
+    Do you want to rebuild a TEST database or COMPLETE one?(t/c)
+
+    NOTICE: There would be 30 records in test database and 2855 in complete one.
+            If you want to rebuild a complete database, it might take a lot of time to complete the process.
+            '''
+            option_sub = input(message)
+            while True:
+                if option_sub.strip().lower() == 't':
+                    db_test()
+                    break
+                elif option_sub.strip().lower() == 'c':
+                    db_main()
+                    break
+                else:
+                    print('Invaid input, please try again.\n')
+                    continue
+            break                    
+        elif option.strip().lower() == 'n':
+            break
+        else:
+            print('Invaid input, please try again.\n')
+            continue
