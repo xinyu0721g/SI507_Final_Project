@@ -40,8 +40,8 @@ This project creates an Flask app where users can search for basic information o
 - address: address of the house (court/garden name)
 - region_en: region name in English (traditional region division of Shanghai)
 
-**String Method:**
-- return: a string output of basic information of a housing post
+**Method:**
+- __str__: return a string output of basic information of a housing post
 
 ## Data Access and Storage
 
@@ -95,7 +95,7 @@ get average total_price/total_area/unit_price for each group (if group=None, get
 
 **return:** a dictionary where key is group name and value is correlated average total_price/total_area/unit_price
 
-###Unit Testing
+### Unit Testing
 - Test the functionality of functions in model.py
 - 2 test case and 15 assertions
 
