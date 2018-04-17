@@ -102,14 +102,16 @@ def db_init(db_name):
     statement = '''
         CREATE TABLE IF NOT EXISTS SizeLevels (
             Id INTEGER PRIMARY KEY,
-            SizeRange TEXT
+            SizeRange TEXT,
+            SizeRangeEn TEXT
     );'''
     cur.execute(statement)
 
     statement = '''
         CREATE TABLE IF NOT EXISTS PriceLevels (
             Id INTEGER PRIMARY KEY,
-            PriceRange TEXT
+            PriceRange TEXT,
+            PriceRangeEn TEXT
     );'''
     cur.execute(statement)
     conn.commit()
@@ -170,19 +172,18 @@ def insert_size_levels_data(db_name):
     conn = sqlite3.connect(db_name)
     cur = conn.cursor()
 
-    size_levels_dict = {
-        1: '300平米及以上',
-        2: '150-299.99平米',
-        3: '110-149.99平米',
-        4: '70-109.99平米',
-        5: '70平米以下（不包含70平米）'
-    }
-    for i in range(1, 6):
+    size_levels_lst = [
+        (1, '300平米及以上', 'More than or equal to 300 Sq M'),
+        (2, '150-299.99平米', '150-299.99 Sq M'),
+        (3, '110-149.99平米', '110-149.99 Sq M'),
+        (4, '70-109.99平米', '70-109.99 Sq M'),
+        (5, '70平米以下（不包含70平米）', 'Less than 70 Sq M'),
+    ]
+    for i in size_levels_lst:
         statement = '''
-            INSERT INTO SizeLevels VALUES (?,?)
+            INSERT INTO SizeLevels VALUES (?,?,?)
         '''
-        insertion = (i, size_levels_dict[i])
-        cur.execute(statement, insertion)
+        cur.execute(statement, i)
 
     conn.commit()
     conn.close()
@@ -193,19 +194,18 @@ def insert_price_levels_data(db_name):
     conn = sqlite3.connect(db_name)
     cur = conn.cursor()
 
-    price_levels_dict = {
-        1: '3000万及以上',
-        2: '1000-2999.99万',
-        3: '500-999.99万',
-        4: '200-499.99万',
-        5: '200万以下（不包含200万）'
-    }
-    for i in range(1, 6):
+    price_levels_lst = [
+        (1, '3000万及以上', 'More than or equal to 30 MM CNY'),
+        (2, '1000-2999.99万', '10-29.99 MM CNY'),
+        (3, '500-999.99万', '5-9.99 MM CNY'),
+        (4, '200-499.99万', '2-4.99 MM CNY'),
+        (5, '200万以下（不包含200万）', 'Less than 2 MM CNY'),
+    ]
+    for i in price_levels_lst:
         statement = '''
-            INSERT INTO PriceLevels VALUES (?,?)
+            INSERT INTO PriceLevels VALUES (?,?,?)
         '''
-        insertion = (i, price_levels_dict[i])
-        cur.execute(statement, insertion)
+        cur.execute(statement, i)
 
     conn.commit()
     conn.close()
