@@ -23,7 +23,7 @@ def search_data():
     print(area_lst)
     area_result = []
     for area in area_lst.split(','):
-        area_result += get_house_info_by_group(lang='en', group='region', group_name=area)
+        area_result += table_get_housing_posts(lang='en', group='region', group_name=area)
     return json.dumps(area_result)
 
 
