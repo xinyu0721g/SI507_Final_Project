@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+</head>
+<style>
+    .header {
+        height: 100px;
+        background-color: #598234;
+        color: #FFFFFF;
+        text-align: center
+    }
+    .header-td {
+        width: 22%
+    }
+    .text-area {
+        font-size: 20px
+    }
+    .button-search {
+        background-color: #598234;
+        color: #FFFFFF
+    }
+    .data-table {
+        text-align: center
+    }
+</style>
+<body>
+    <div class="row header">
+        <h1>WELCOME</h1>
+    </div>
+    <div>
+        <div class="col-md-1">
+            <p class="text-area"><strong>AREA:</strong></p>
+            <br>
+            <button class="button-search" onclick="search()">SEARCH</button>
+        </div>
+
+        <div class="col-md-11">
+            <table>
+                <tbody>
+                <tr>
+                {% for index in range(20) %}
+                    <td class="header-td">
+                        {% if area_lst[index] == "ALL" %}
+                        <input type="checkbox" name="ALL" id="ALL">
+                        <label>Select All</label>
+                        {% else %}
+                        <input type="checkbox" name="area" id="{{ area_lst[index] }}">
+                        <label>{{ area_lst[index] }}</label>
+                        {% endif %}
+                    </td>
+                {% if index in [4, 9, 14] %}
+                </tr>
+                <tr>
+                {% endif %}
+                {% endfor %}
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="table">
+        <table class="display" id="search-table"></table>
+    </div>
+</body>
+<script>
+    $("#ALL").click(function(){
+        var status = $(this).prop("checked");
+        var other = $("input[name='area']").prop("checked", status);
+    });
+
+    function search(){
+        var id_array = new Array();
+        $("input[name=area]:checked").each(function(){
+            id_array.push($(this).attr("id"))
+        })
+
+        if (typeof(table_obj) != "undefined"){
+            table_obj.destroy();
+        }
+        table_obj = $("#search-table").DataTable({
+            ajax: {
+                url: "/search/data/?area_lst=" + id_array.join(","),
+                dataSrc: ""
+            },
+            columns: [
+                {
+                    data: 0,
+                    title: "URL",
+                    className: "data-table"
+                },
+                {
+                    data: 1,
+                    title: "Region",
+                    className: "data-table"
+                },
+                {
+                    data: 2,
+                    title: "NumOfBd",
+                    className: "data-table"
+                },
+                {
+                    data: 3,
+                    title: "TotalPriceUSD",
+                    className: "data-table"
+                },
+                {
+                    data: 4,
+                    title: "TotalAreaSqFt",
+                    className: "data-table"
+                },
+                {
+                    data: 5,
+                    title: "UnitPriceUSD",
+                    className: "data-table"
+                },
+            ],
+            scrollY: 400,
+            pageLength: 50,
+            lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "ALL"]]
+        });
+    };
+</script>
+</html>

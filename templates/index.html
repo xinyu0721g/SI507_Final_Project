@@ -3,9 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
 </head>
+<style>
+    .header {
+        height: 100px;
+        background-color: #598234;
+        color: #FFFFFF;
+        text-align: center
+    }
+    .img {
+        height: 545px
+    }
+    .my_button {
+        width: 105%;
+        height: 60px;
+        background-color: #598234;
+        color: #FFFFFF
+    }
+</style>
 <body>
-    <h1>Welcome to Shanghai!</h1>
-    <img src="">
+    <div class="row header">
+        <h1>WELCOME</h1>
+    </div>
+    <div class="row img"></div>
+    <div class="row button">
+        <div class="col-md-6">
+            <button class="my_button" onclick="search()">SEARCH</button>
+        </div>
+        <div class="col-md-6">
+            <button class="my_button" onclick="chart()">CHART</button>
+        </div>
+    </div>
 </body>
+<script>
+    function search() {
+        window.location.href="/search"
+    }
+    function chart() {
+        window.location.href="/chart"
+    }
+</script>
 </html>
