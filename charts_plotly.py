@@ -16,8 +16,65 @@ def plot_bar_chart(db_name=DB_NAME, lang='en', x_name='region', y_name='unit_pri
     :param lang: language, default English (options: zh(Chinese)/en(English))
     :param x_name: options: region, num_bd, size_level, price_level
     :param y_name: options: total_price, total_area, unit_price
-    :return:
+    :return: a bar chart
     """
+
+    if lang == 'en':
+        title = 'Shanghai Second-hand Housing'
+        if x_name == 'region':
+            x_title = 'Region Name'
+        elif x_name == 'num_bd':
+            x_title = 'Number of Bedrooms'
+        elif x_name == 'size_level':
+            x_title = 'Size Level'
+        elif x_name == 'price_level':
+            x_title = 'Price Level'
+        else:
+            return None
+
+        if y_name == 'total_price':
+            y_title = 'Total Price (K USD)'
+        elif y_name == 'total_area':
+            y_title = 'Total Area (SQ FT)'
+        elif y_name == 'unit_price':
+            y_title = 'Unit Price (USD/SQ FT)'
+        else:
+            return None
+
+    elif lang == 'zh':
+        title = '上海二手房价'
+        if x_name == 'region':
+            x_title = '区域'
+        elif x_name == 'num_bd':
+            x_title = '户型'
+        elif x_name == 'size_level':
+            x_title = '面积'
+        elif x_name == 'price_level':
+            x_title = '总价'
+        else:
+            return None
+
+        if y_name == 'total_price':
+            y_title = '总价（万元）'
+        elif y_name == 'total_area':
+            y_title = '面积（平米）'
+        elif y_name == 'unit_price':
+            y_title = '单价（元/平米）'
+        else:
+            return None
+
+    else:
+        return None
+
+    layout = dict(
+        title=title,
+        xaxis=dict(
+            title=x_title,
+        ),
+        yaxis=dict(
+            title=y_title
+        )
+    )
 
     x_lst = []
     y_lst = []
@@ -77,15 +134,88 @@ def plot_bar_chart(db_name=DB_NAME, lang='en', x_name='region', y_name='unit_pri
         x=x_lst,
         y=y_lst
     )]
-    plotly.offline.plot(data, filename=fdest)
+    fig = dict(data=data, layout=layout)
+    plotly.offline.plot(fig, filename=fdest)
 
 
-def plot_scatter_chart(db_name=DB_NAME, lang='en', x_name='region', y_name='unit_price'):
-    # fname = get_unique_chart_name(chart_type='scatter', db_name=db_name, lang=lang, x_name=x_name, y_name=y_name)
-    # fdest = 'charts/scatter/' + fname
-    #
-    # plotly.offline.plot(data, filename=fdest)
-    pass
+def plot_scatter_chart(db_name=DB_NAME, lang='en', x_name='density', y_name='unit_price'):
+    """
+    plot scatter chart (each point represents one district in Shanghai)
+    :param db_name: database name, default DB_NAME
+    :param lang: language, default English (options: zh(Chinese)/en(English))
+    :param x_name: options: density/gdp(per capita)
+    :param y_name: unit_price
+    :return: a scatter plot
+    """
+
+    if lang == 'en':
+        title = 'Shanghai Second-hand Housing'
+        if x_name == 'density':
+            x_title = 'Density (K/Sq Mi)'
+        elif x_name == 'gdp':
+            x_title = 'GDP Per Capita (K USD)'
+        else:
+            return None
+
+        if y_name == 'unit_price':
+            y_title = 'Unit Price (USD/SQ FT)'
+        else:
+            return None
+
+    elif lang == 'zh':
+        title = '上海二手房价'
+        if x_name == 'density':
+            x_title = '人口密度（万人/平方公里）'
+        elif x_name == 'gdp':
+            x_title = '人均GDP（万元）'
+        else:
+            return None
+
+        if y_name == 'unit_price':
+            y_title = '单价（元/平米）'
+        else:
+            return None
+
+    else:
+        return None
+
+    layout = dict(
+        title=title,
+        xaxis=dict(
+            title=x_title,
+        ),
+        yaxis=dict(
+            title=y_title
+        )
+    )
+
+    fname = get_unique_chart_name(chart_type='scatter', db_name=db_name, lang=lang, x_name=x_name, y_name=y_name)
+    fdest = 'charts/scatter/' + fname
+    x_lst = []
+    y_lst = []
+    name_lst = []
+
+    get_new_region_data()
+    id_lst = range(1, 17)
+    region_dict = get_new_region_dict(db_name=db_name, lang=lang)
+    x_data_dict = get_new_region_data(db_name=db_name, data=x_name)
+    y_data_dict = get_avgs(db_name=db_name, lang=lang, data=y_name, group='region')
+
+    for i in id_lst:
+        name_lst.append(region_dict[i])
+        x_lst.append(x_data_dict[i])
+        y_lst.append(y_data_dict[i])
+    print(name_lst)
+
+    data = [go.Scatter(
+        x=x_lst,
+        y=y_lst,
+        text=name_lst,
+        mode='markers'
+    )]
+
+    fig = dict(data=data, layout=layout)
+    plotly.offline.plot(fig, filename=fdest)
 
 
 def plot_bars():
@@ -95,7 +225,16 @@ def plot_bars():
                 plot_bar_chart(db_name=DB_NAME, lang=lang, x_name=x_name, y_name=y_name)
 
 
+def plot_scatters():
+    for lang in ['en', 'zh']:
+        for x_name in ['density', 'gdp']:
+            for y_name in ['unit_price']:
+                plot_scatter_chart(db_name=DB_NAME, lang=lang, x_name=x_name, y_name=y_name)
+
+
 if __name__ == '__main__':
     # print(get_unique_chart_name())
-    plot_bars()
+    # plot_bars()
+    plot_scatters()
     pass
+
