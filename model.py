@@ -459,10 +459,11 @@ if __name__ == '__main__':
     # print(get_old_region_dict(lang='en'))
     # print(get_price_level_dict(lang='zh'))
     # print(get_size_level_dict(lang='en'))
-    # print(get_avg_by_group(lang='zh', data='unit_price', group='size_level'))
+    # print(get_avg_by_group(lang='zh', data='unit_price', group='region'))
     # print(get_region_data(lang='en', data='gdp'))
-    house_post_lst = get_house_info_by_group(lang='zh', group='size_level', group_id=3)
-    if house_post_lst is not None:
-        print(len(house_post_lst))
-    else:
-        print('None')
+    # house_post_lst = get_house_info_by_group(lang='zh', group='size_level', group_id=3)
+    # if house_post_lst is not None:
+    #     print(len(house_post_lst))
+    # else:
+    #     print('None')
+    pass
