@@ -492,7 +492,7 @@ if __name__ == '__main__':
     # print(get_new_region_dict(lang='en'))
     # print(get_price_level_dict(lang='zh'))
     # print(get_size_level_dict(lang='en'))
-    print(get_avgs(lang='zh', data='unit_price', group='num_bd'))
+    print(get_avgs(lang='en', data='total_price', group=None))
     # print(get_new_region_data(lang='zh', data='gdp'))
     # house_post_lst = table_get_housing_posts(lang='zh', group='region', group_id=3)
     # if house_post_lst is not None:
