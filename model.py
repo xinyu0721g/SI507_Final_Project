@@ -37,6 +37,39 @@ def get_old_region_dict(db_name=DB_NAME, lang='en'):
     return region_dict
 
 
+def get_new_region_dict(db_name=DB_NAME, lang='en'):
+    """
+    get region name list with latest region division (after year 2015)
+    :param db_name: database name, default DB_NAME
+    :param lang: language, default English (options: zh(Chinese)/en(English))
+    :return: a dictionary where key is region id (new) and value is region name (new)
+    """
+
+    region_dict = {}
+    db_dest = 'database/' + db_name
+    conn = sqlite3.connect(db_dest)
+    cur = conn.cursor()
+
+    if lang == 'zh':
+        select_col = 'NameZh'
+    elif lang == 'en':
+        select_col = 'NameEn'
+    else:
+        return None
+
+    statement = '''
+        SELECT Id, {}
+        FROM RegionsNew
+    ;'''.format(select_col)
+    result = cur.execute(statement)
+    result_lst = result.fetchall()
+    for (region_id, region_name) in result_lst:
+        region_dict[region_id] = region_name
+
+    conn.close()
+    return region_dict
+
+
 def get_price_level_dict(db_name=DB_NAME, lang='en'):
     """
     get price level dictionary
@@ -183,25 +216,25 @@ def get_avg_by_group(db_name=DB_NAME, lang='en', data='unit_price', group=None):
             output_message = '全上海' + output_message
         else:
             output_message = 'All in Shanghai' + output_message
+
     elif group == 'region':
         if lang == 'zh':
-            select_group = 'RegionsOld.NewNameZh'
             output_message = '区域' + output_message
         else:
-            select_group = 'RegionsOld.NewNameEn'
             output_message = 'Region' + output_message
         statement = '''
-            SELECT {}, {}
+            SELECT NewRegionId, {}
             FROM Houses
                 JOIN RegionsOld
                     ON Houses.RegionId = RegionsOld.Id
             GROUP BY RegionsOld.NewRegionId
             ORDER BY {} DESC
-        ;'''.format(select_group, data_column, data_column)
+        ;'''.format(data_column, data_column)
         result = cur.execute(statement)
         result_lst = result.fetchall()
-        for (new_region_name, value) in result_lst:
-            return_dict[new_region_name] = round(value, 2)
+        for (new_region_id, value) in result_lst:
+            return_dict[new_region_id] = round(value, 2)
+
     elif group in ['num_bd', 'price_level', 'size_level']:
         if group == 'num_bd':
             group_by = 'NumOfBd'
@@ -231,6 +264,7 @@ def get_avg_by_group(db_name=DB_NAME, lang='en', data='unit_price', group=None):
         result_lst = result.fetchall()
         for (group_name, value) in result_lst:
             return_dict[group_name] = round(value, 2)
+
     else:
         return None
 
@@ -245,8 +279,8 @@ def get_region_data(db_name=DB_NAME, lang='en', data='density'):
     get region information from RegionsNew table
     :param db_name: database name, default DB_NAME
     :param lang: language, default English (options: zh(Chinese)/en(English))
-    :param data: returned data column, default density (options: density/gdp(per_capita))
-    :return: a dictionary where key is region name and value is correlated density/gdp(per_capita)
+    :param data: returned data column, default density (options: density/gdp(per capita))
+    :return: a dictionary where key is region id and value is correlated density/gdp(per capita)
     """
 
     return_dict = {}
@@ -257,7 +291,6 @@ def get_region_data(db_name=DB_NAME, lang='en', data='density'):
     cur = conn.cursor()
 
     if lang == 'zh':
-        region_column = 'NameZh'
         output_message += '区域：'
         if data == 'density':
             data_column = 'Density10KSqKm'
@@ -268,7 +301,6 @@ def get_region_data(db_name=DB_NAME, lang='en', data='density'):
         else:
             return None
     elif lang == 'en':
-        region_column = 'NameEn'
         output_message += 'Region: '
         if data == 'density':
             data_column = 'DensityKSqMi'
@@ -282,14 +314,14 @@ def get_region_data(db_name=DB_NAME, lang='en', data='density'):
         return None
 
     statement = '''
-        SELECT {}, {} 
+        SELECT Id, {} 
         FROM RegionsNew
         ORDER BY {} DESC
-    ;'''.format(region_column, data_column, data_column)
+    ;'''.format(data_column, data_column)
     result = cur.execute(statement)
     result_lst = result.fetchall()
-    for (region_name, data_column) in result_lst:
-        return_dict[region_name] = data_column
+    for (region_id, data_column) in result_lst:
+        return_dict[region_id] = data_column
 
     conn.close()
 
@@ -456,12 +488,12 @@ def get_house_info_by_group(db_name=DB_NAME, lang='zh', group=None, group_id=Non
 
 
 if __name__ == '__main__':
-    # print(get_old_region_dict(lang='en'))
+    # print(get_old_region_dict(lang='zh'))
     # print(get_price_level_dict(lang='zh'))
     # print(get_size_level_dict(lang='en'))
-    # print(get_avg_by_group(lang='zh', data='unit_price', group='region'))
-    # print(get_region_data(lang='en', data='gdp'))
-    # house_post_lst = get_house_info_by_group(lang='zh', group='size_level', group_id=3)
+    # print(get_avg_by_group(lang='en', data='unit_price', group='size_level'))
+    # print(get_region_data(lang='zh', data='gdp'))
+    # house_post_lst = get_house_info_by_group(lang='zh', group='region', group_id=3)
     # if house_post_lst is not None:
     #     print(len(house_post_lst))
     # else:
