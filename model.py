@@ -4,13 +4,138 @@ DB_NAME = 'Fang_db.sqlite'
 DB_TEST = 'Fang_db_test.sqlite'
 
 
-def get_avg_by_group(db_name=DB_TEST, lang='zh', data='unit_price', group=None):
+def get_old_region_dict(db_name=DB_NAME, lang='en'):
+    """
+    get region name list with traditional region division
+    :param db_name: database name, default DB_NAME
+    :param lang: language, default English (options: zh(Chinese)/en(English))
+    :return: a dictionary where key is region id (old) and value is region name (old)
+    """
+
+    region_dict = {}
+    db_dest = 'database/' + db_name
+    conn = sqlite3.connect(db_dest)
+    cur = conn.cursor()
+
+    if lang == 'zh':
+        select_col = 'NameZh'
+    elif lang == 'en':
+        select_col = 'NameEn'
+    else:
+        return None
+
+    statement = '''
+        SELECT Id, {}
+        FROM RegionsOld
+    ;'''.format(select_col)
+    result = cur.execute(statement)
+    result_lst = result.fetchall()
+    for (region_id, region_name) in result_lst:
+        region_dict[region_id] = region_name
+
+    conn.close()
+    return region_dict
+
+
+def get_price_level_dict(db_name=DB_NAME, lang='en'):
+    """
+    get price level dictionary
+    :param db_name: database name, default DB_NAME
+    :param lang: language, default English (options: zh(Chinese)/en(English))
+    :return: a dictionary where key is price level id and value is price range of that level
+    """
+
+    price_dict = {}
+    db_dest = 'database/' + db_name
+    conn = sqlite3.connect(db_dest)
+    cur = conn.cursor()
+
+    if lang == 'zh':
+        select_col = 'PriceRange'
+    elif lang == 'en':
+        select_col = 'PriceRangeEn'
+    else:
+        return None
+
+    statement = '''
+        SELECT Id, {}
+        FROM PriceLevels
+    ;'''.format(select_col)
+    result = cur.execute(statement)
+    result_lst = result.fetchall()
+    for (price_level, price_range) in result_lst:
+        price_dict[price_level] = price_range
+
+    conn.close()
+    return price_dict
+
+
+def get_size_level_dict(db_name=DB_NAME, lang='en'):
+    """
+    get size level dictionary
+    :param db_name: database name, default DB_NAME
+    :param lang: language, default English (options: zh(Chinese)/en(English))
+    :return: a dictionary where key is size level id and value is size range of that level
+    """
+
+    size_dict = {}
+    db_dest = 'database/' + db_name
+    conn = sqlite3.connect(db_dest)
+    cur = conn.cursor()
+
+    if lang == 'zh':
+        select_col = 'SizeRange'
+    elif lang == 'en':
+        select_col = 'SizeRangeEn'
+    else:
+        return None
+
+    statement = '''
+        SELECT Id, {}
+        FROM SizeLevels
+    ;'''.format(select_col)
+    result = cur.execute(statement)
+    result_lst = result.fetchall()
+    for (size_level, size_range) in result_lst:
+        size_dict[size_level] = size_range
+
+    conn.close()
+    return size_dict
+
+
+def get_style_lst(db_name=DB_NAME):
+    """
+    get available style list
+    :param db_name: database name, default DB_NAME
+    :return: a list of available housing styles (number of bedrooms)
+    """
+
+    style_lst = []
+    db_dest = 'database/' + db_name
+    conn = sqlite3.connect(db_dest)
+    cur = conn.cursor()
+
+    statement = '''
+        SELECT DISTINCT NumOfBd
+        FROM Houses
+        ORDER BY NumOfBd
+    ;'''
+    result = cur.execute(statement)
+    result_lst = result.fetchall()
+    for (num_of_bd,) in result_lst:
+        style_lst.append(num_of_bd)
+
+    conn.close()
+    return style_lst
+
+
+def get_avg_by_group(db_name=DB_NAME, lang='en', data='unit_price', group=None):
     """
     get average total_price/total_area/unit_price for each group (if group=None, get data for all posts)
-    :param db_name: database name
-    :param lang: language, default Chinese (options: zh(Chinese)/en(English))
+    :param db_name: database name, default DB_NAME
+    :param lang: language, default English (options: zh(Chinese)/en(English))
     :param data: returned data column, default unit_price (options: total_price/total_area/unit_price)
-    :param group: group method default None (options: None/region/num_bd/size_level/price_level)
+    :param group: group method, default None (options: None/region/num_bd/size_level/price_level)
     :return: a dictionary where key is group name and value is correlated average total_price/total_area/unit_price
     """
 
@@ -27,7 +152,7 @@ def get_avg_by_group(db_name=DB_TEST, lang='zh', data='unit_price', group=None):
             output_message += '：平均总价（万元）'
         elif data == 'total_area':
             data_column = 'AVG(TotalAreaSqM)'
-            output_message += '：平均总面积（平米）'
+            output_message += '：平均面积（平米）'
         elif data == 'unit_price':
             data_column = 'AVG(UnitPriceCNY)'
             output_message += '：平均单价（元/平米）'
@@ -115,14 +240,15 @@ def get_avg_by_group(db_name=DB_TEST, lang='zh', data='unit_price', group=None):
     return return_dict
 
 
-def get_region_data(db_name=DB_TEST, lang='zh', data='density'):
+def get_region_data(db_name=DB_NAME, lang='en', data='density'):
     """
     get region information from RegionsNew table
-    :param db_name: database name
-    :param lang: language, default Chinese
-    :param data: returned data column, default density (options: density/gdp_per_capita)
-    :return: a dictionary where key is region name and value is correlated density/gdp_per_capita
+    :param db_name: database name, default DB_NAME
+    :param lang: language, default English (options: zh(Chinese)/en(English))
+    :param data: returned data column, default density (options: density/gdp(per_capita))
+    :return: a dictionary where key is region name and value is correlated density/gdp(per_capita)
     """
+
     return_dict = {}
     db_dest = 'database/' + db_name
     output_message = ''
@@ -136,7 +262,7 @@ def get_region_data(db_name=DB_TEST, lang='zh', data='density'):
         if data == 'density':
             data_column = 'Density10KSqKm'
             output_message += '人口密度（万人/平方公里）'
-        elif data == 'gdp_per_capita':
+        elif data == 'gdp':
             data_column = 'GDPPerCapita10KCNY'
             output_message += '人均GDP（万元）'
         else:
@@ -147,8 +273,9 @@ def get_region_data(db_name=DB_TEST, lang='zh', data='density'):
         if data == 'density':
             data_column = 'DensityKSqMi'
             output_message += 'Density (K/Sq Mi)'
-        elif data == 'gdp_per_capita':
-            data_column = 'GDP Per Capita (K USD)'
+        elif data == 'gdp':
+            data_column = 'GDPPerCapitaKUSD'
+            output_message += 'GDP Per Capita (K USD)'
         else:
             return None
     else:
@@ -170,93 +297,90 @@ def get_region_data(db_name=DB_TEST, lang='zh', data='density'):
     return return_dict
 
 
-def get_old_region_lst(db_name=DB_TEST, lang='zh'):
-    region_lst = []
-    db_dest = 'database/' + db_name
-    conn = sqlite3.connect(db_dest)
-    cur = conn.cursor()
+def get_house_info_by_group(db_name=DB_NAME, lang='zh', group=None, group_id=None):
+    """
+    get a list of house info dictionaries by group
+    :param db_name: database name, default DB_NAME
+    :param lang: language, default English (options: zh(Chinese)/en(English))
+    :param group: group method, default None (options: None/region/num_bd/size_level/price_level)
+    :param group_id: region_id/num_bd/size_level/price_level
+    :return: a list of dictionaries (each dictionary represents one housing post)
+    """
 
-    if lang == 'zh':
-        select_col = 'NameZh'
-    elif lang == 'en':
-        select_col = 'NameEn'
-    else:
-        return None
-
-    statement = '''
-        SELECT {}
-        FROM RegionsOld
-    ;'''.format(select_col)
-    result = cur.execute(statement)
-    result_lst = result.fetchall()
-    for (region_name,) in result_lst:
-        region_lst.append(region_name)
-
-    conn.close()
-    return region_lst
-
-
-def get_house_info_by_group(db_name=DB_TEST, lang='zh', group=None, group_name=None):
     return_lst = []
     db_dest = 'database/' + db_name
     output_message = ''
     conn = sqlite3.connect(db_dest)
     cur = conn.cursor()
+    where_limit = ''
 
     if lang == 'zh':
-        region_lst = get_old_region_lst(db_name, lang='zh')
-        print(region_lst)
         statement = '''
             SELECT Title, URL, Region, Address, Style, TotalPriceCNY, TotalAreaSqM, UnitPriceCNY
             FROM Houses
             {}
         ;'''
+        key_names = ['Title', 'URL', 'Region', 'Address', 'Style', 'TotalPriceCNY', 'TotalAreaSqM', 'UnitPriceCNY']
+
         if group is None:
-            where_limit = ''
-            output_message += '全上海'
-            result = cur.execute(statement.format(where_limit))
-            return_lst = result.fetchall()
-        elif group == 'region':
-            output_message += '区域：'
-            if group_name in region_lst:
-                output_message += group_name
-                where_limit = 'WHERE Region = \'{}\''.format(group_name)
-                result = cur.execute(statement.format(where_limit))
-                return_lst = result.fetchall()
+            if group_id is None:
+                output_message += '全上海'
             else:
                 return None
+
+        elif group == 'region':
+            region_dict = get_old_region_dict(db_name, lang)
+            print(region_dict)
+            region_id_lst = list(region_dict.keys())
+            output_message += '区域：'
+            if group_id in region_id_lst:
+                output_message += region_dict[group_id]
+                where_limit = 'WHERE RegionId = {}'.format(group_id)
+            else:
+                return None
+
         elif group == 'size_level':
+            size_level_dict = get_size_level_dict(db_name, lang)
+            print(size_level_dict)
+            size_level_lst = list(size_level_dict.keys())
             output_message += '面积：'
-            if group_name in [1, 2, 3, 4, 5]:
-                statement_sub = '''
-                    SELECT SizeRange
-                    FROM SizeLevels 
-                    WHERE Id = {}
-                ;'''.format(group_name)
-                size_range = cur.execute(statement_sub).fetchone()
-                output_message += size_range
-                where_limit = 'WHERE SizeLevel = {}'.format(group_name)
-                result = cur.execute(statement.format(where_limit))
-                return_lst = result.fetchall()
+            if group_id in size_level_lst:
+                output_message += size_level_dict[group_id]
+                where_limit = 'WHERE SizeLevel = {}'.format(group_id)
+            else:
+                return None
+
         elif group == 'price_level':
+            price_level_dict = get_price_level_dict(db_name, lang)
+            print(price_level_dict)
+            price_level_lst = list(price_level_dict.keys())
             output_message += '总价：'
-            if group_name in [1, 2, 3, 4, 5]:
-                statement_sub = '''
-                    SELECT PriceRange
-                    FROM PriceLevels 
-                    WHERE Id = {}
-                ;'''.format(group_name)
-                price_range = cur.execute(statement_sub).fetchone()
-                output_message += price_range
-                where_limit = 'WHERE PriceLevel = {}'.format(group_name)
-                result = cur.execute(statement.format(where_limit))
-                return_lst = result.fetchall()
+            if group_id in price_level_lst:
+                output_message += price_level_dict[group_id]
+                where_limit = 'WHERE PriceLevel = {}'.format(group_id)
+            else:
+                return None
+
+        elif group == 'num_bd':
+            style_lst = get_style_lst(db_name)
+            print(style_lst)
+            output_message += '户型：'
+            if group_id in style_lst:
+                output_message += str(group_id) + ' 室'
+                where_limit = 'WHERE NumOfBd = {}'.format(group_id)
+            else:
+                return None
+
         else:
             return None
 
+        result = cur.execute(statement.format(where_limit))
+        result_lst = result.fetchall()
+        for row in result_lst:
+            row_dict = dict(zip(key_names, row))
+            return_lst.append(row_dict)
+
     elif lang == 'en':
-        region_lst = get_old_region_lst(db_name, lang='en')
-        print(region_lst)
         statement = '''
             SELECT URL, RegionsOld.NameEn, NumOfBd, TotalPriceUSD, TotalAreaSqFt, UnitPriceUSD
             FROM Houses
@@ -264,22 +388,66 @@ def get_house_info_by_group(db_name=DB_TEST, lang='zh', group=None, group_name=N
                     ON Houses.RegionId = RegionsOld.Id
             {}
         ;'''
+        key_names = ['URL', 'Region', 'NumOfBd', 'TotalPriceUSD', 'TotalAreaSqFt', 'UnitPriceUSD']
+
         if group is None:
-            where_limit = ''
-            output_message += 'All in Shanghai'
-            result = cur.execute(statement.format(where_limit))
-            return_lst = result.fetchall()
-        elif group == 'region':
-            output_message += 'Region: '
-            if group_name in region_lst:
-                output_message += group_name
-                where_limit = 'WHERE RegionsOld.NameEn = \'{}\''.format(group_name)
-                result = cur.execute(statement.format(where_limit))
-                return_lst = result.fetchall()
+            if group_id is None:
+                output_message += 'All in Shanghai'
             else:
                 return None
+
+        elif group == 'region':
+            region_dict = get_old_region_dict(db_name, lang)
+            print(region_dict)
+            region_id_lst = list(region_dict.keys())
+            output_message += 'Region: '
+            if group_id in region_id_lst:
+                output_message += region_dict[group_id]
+                where_limit = 'WHERE RegionId = {}'.format(group_id)
+            else:
+                return None
+
+        elif group == 'size_level':
+            size_level_dict = get_size_level_dict(db_name, lang)
+            print(size_level_dict)
+            size_level_lst = list(size_level_dict.keys())
+            output_message += '面积：'
+            if group_id in size_level_lst:
+                output_message += size_level_dict[group_id]
+                where_limit = 'WHERE SizeLevel = {}'.format(group_id)
+            else:
+                return None
+
+        elif group == 'price_level':
+            price_level_dict = get_price_level_dict(db_name, lang)
+            print(price_level_dict)
+            price_level_lst = list(price_level_dict.keys())
+            output_message += '总价：'
+            if group_id in price_level_lst:
+                output_message += price_level_dict[group_id]
+                where_limit = 'WHERE PriceLevel = {}'.format(group_id)
+            else:
+                return None
+
+        elif group == 'num_bd':
+            style_lst = get_style_lst(db_name)
+            print(style_lst)
+            output_message += '户型：'
+            if group_id in style_lst:
+                output_message += str(group_id) + ' 室'
+                where_limit = 'WHERE NumOfBd = {}'.format(group_id)
+            else:
+                return None
+
         else:
             return None
+
+        result = cur.execute(statement.format(where_limit))
+        result_lst = result.fetchall()
+        for row in result_lst:
+            row_dict = dict(zip(key_names, row))
+            return_lst.append(row_dict)
+
     else:
         return None
 
@@ -288,10 +456,13 @@ def get_house_info_by_group(db_name=DB_TEST, lang='zh', group=None, group_name=N
 
 
 if __name__ == '__main__':
-    result = get_house_info_by_group(lang='zh', group='region', group_name='黄浦')
-    if result is None:
-        print('None')
+    # print(get_old_region_dict(lang='en'))
+    # print(get_price_level_dict(lang='zh'))
+    # print(get_size_level_dict(lang='en'))
+    # print(get_avg_by_group(lang='zh', data='unit_price', group='size_level'))
+    # print(get_region_data(lang='en', data='gdp'))
+    house_post_lst = get_house_info_by_group(lang='zh', group='size_level', group_id=3)
+    if house_post_lst is not None:
+        print(len(house_post_lst))
     else:
-        for i in result:
-            print(i)
-    pass
+        print('None')
