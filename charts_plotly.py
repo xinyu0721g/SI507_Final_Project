@@ -132,10 +132,14 @@ def plot_bar_chart(db_name=DB_NAME, lang='en', x_name='region', y_name='unit_pri
 
     data = [go.Bar(
         x=x_lst,
-        y=y_lst
+        y=y_lst,
+        marker=dict(
+            color='rgb(64, 85, 128)'
+        )
     )]
     fig = dict(data=data, layout=layout)
-    plotly.offline.plot(fig, filename=fdest)
+    div = plotly.offline.plot(fig, show_link=False, output_type='div', include_plotlyjs=False)
+    return div
 
 
 def plot_scatter_chart(db_name=DB_NAME, lang='en', x_name='density', y_name='unit_price'):
@@ -205,17 +209,21 @@ def plot_scatter_chart(db_name=DB_NAME, lang='en', x_name='density', y_name='uni
         name_lst.append(region_dict[i])
         x_lst.append(x_data_dict[i])
         y_lst.append(y_data_dict[i])
-    print(name_lst)
+    # print(name_lst)
 
     data = [go.Scatter(
         x=x_lst,
         y=y_lst,
         text=name_lst,
-        mode='markers'
+        mode='markers',
+        marker=dict(
+            color='rgb(64, 85, 128)'
+        )
     )]
 
     fig = dict(data=data, layout=layout)
-    plotly.offline.plot(fig, filename=fdest)
+    div = plotly.offline.plot(fig, show_link=False, output_type='div', include_plotlyjs=False)
+    return div
 
 
 def plot_bars():

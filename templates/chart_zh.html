@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>Chart Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<style>
+    .left-panel {
+        position: relative;
+        top: 2px;
+        padding-left: 20px;
+        text-align: left;
+    }
+    .right-panel {
+        position: relative;
+        top: 2px;
+        padding-right: 20px;
+        text-align: right;
+    }
+    .border {
+        background-color: #000B29;
+        height: 27px
+    }
+    .text {
+        color: #9A9EAB;
+        font-family: "Lucida Console", Monaco, monospace;
+    }
+    .text-zh {
+        color: #9A9EAB;
+        font-weight: bold
+    }
+    .main-body {
+        height: 649px
+    }
+    .pic {
+        height: 600px
+    }
+
+    .menu {
+        height: 643px;
+        background-color: #DCEDFF
+    }
+    .menu-detail {
+        height: 50%
+    }
+    .chart-button {
+        width: 422px;
+        height: 100px;
+        background-color: #2C3853;
+        color: #FFFFFF;
+        border: 0;
+        font-family: "Lucida Console", Monaco, monospace;
+        font-size: 20px
+    }
+    .axis {
+        position: relative;
+        top: 15px;
+        height: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .choice {
+        position: relative;
+        top: 30px;
+    }
+
+
+</style>
+<body>
+    <div class="row border">
+        <div class="col-md-6 left-panel">
+            <p></p>
+        </div>
+        <div class="col-md-6 right-panel">
+            <p><a href="/chart/" class="right-panel text">ENGLISH</a></p>
+        </div>
+    </div>
+
+    <div class="row main-body">
+        <div class="col-md-4 menu">
+            <div class="menu-detail">
+                <form action="/chart/zh/" method="POST">
+                    <input type="submit" class="chart-button" value="条形图"><br/>
+                    <input type="hidden" name="type" value="bar">
+                    <div class="col-md-6 radio-list">
+                        <div class="axis">X</div>
+                        <div class="choice">
+                            <input type="radio" name="x" value="region"/>
+                            <label>区域</label><br/>
+                            <input type="radio" name="x" value="num_bd"/>
+                            <label>户型（卧室数）</label><br/>
+                            <input type="radio" name="x" value="price_level"/>
+                            <label>总价（等级）</label><br/>
+                            <input type="radio" name="x" value="size_level"/>
+                            <label>面积（等级）</label><br/>
+                            <input type="hidden" name="x" value="" checked="checked"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="axis">Y</div>
+                        <div class="choice">
+                            <input type="radio" name="y" value="unit_price"/>
+                            <label>单价（元/平米）</label><br/>
+                            <input type="radio" name="y" value="total_price"/>
+                            <label>总价（万元）</label><br/>
+                            <input type="radio" name="y" value="total_area"/>
+                            <label>面积（平米）</label><br/>
+                            <input type="hidden" name="y" value="" checked="checked"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="menu-detail">
+                <form action="/chart/zh/" method="POST">
+                    <input type="submit" class="chart-button" value="散点图"><br/>
+                    <input type="hidden" name="type" value="scatter">
+                    <div class="col-md-6">
+                        <div class="axis"><strong>X</strong></div>
+                        <div class="choice">
+                            <input type="radio" name="x" value="density"/>
+                            <label>人口密度</label><br/>
+                            <input type="radio" name="x" value="gdp"/>
+                            <label>人均GDP</label><br/>
+                            <input type="hidden" name="x" value="" checked="checked"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="axis"><strong>Y</strong></div>
+                        <div class="choice">
+                            <input type="radio" name="y" value="unit_price"/>
+                            <label>单价（元/平米）</label><br/>
+                            <input type="hidden" name="y" value="" checked="checked"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-8 pic">
+            {{ div|safe }}
+        </div>
+    </div>
+
+    <div class="row border">
+        <div class="col-md-1 left-panel">
+            <p class="option left-panel">
+                <a href="/zh/" class="option text">主页</a>
+            </p>
+        </div>
+        <div class="col-md-1 left-panel">
+            <p class="option left-panel">
+                <a href="/search/zh/" class="option text">搜索</a>
+            </p>
+        </div>
+        <div class="col-md-4 left-panel">
+            <p></p>
+        </div>
+        <div class="col-md-6 right-panel">
+            <p class="right-panel text">严心宇，2018年4月</p>
+        </div>
+    </div>
+
+</body>
+</html>

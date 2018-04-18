@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chart Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<style>
+    .left-panel {
+        position: relative;
+        top: 2px;
+        padding-left: 20px;
+        text-align: left;
+    }
+    .right-panel {
+        position: relative;
+        top: 2px;
+        padding-right: 20px;
+        text-align: right;
+    }
+    .border {
+        background-color: #000B29;
+        height: 27px
+    }
+    .text {
+        color: #9A9EAB;
+        font-family: "Lucida Console", Monaco, monospace;
+    }
+    .text-zh {
+        color: #9A9EAB;
+        font-weight: bold
+    }
+    .main-body {
+        height: 649px
+    }
+    .pic {
+        height: 600px
+    }
+
+    .menu {
+        height: 643px;
+        background-color: #DCEDFF
+    }
+    .menu-detail {
+        height: 50%
+    }
+    .chart-button {
+        width: 422px;
+        height: 100px;
+        background-color: #2C3853;
+        color: #FFFFFF;
+        border: 0;
+        font-family: "Lucida Console", Monaco, monospace;
+        font-size: 20px
+    }
+    .axis {
+        position: relative;
+        top: 15px;
+        height: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .choice {
+        position: relative;
+        top: 30px;
+    }
+
+
+</style>
+<body>
+    <div class="row border">
+        <div class="col-md-6 left-panel">
+            <p></p>
+        </div>
+        <div class="col-md-6 right-panel">
+            <p><a href="/chart/zh/" class="right-panel text-zh">中文</a></p>
+        </div>
+    </div>
+
+    <div class="row main-body">
+        <div class="col-md-4 menu">
+            <div class="menu-detail">
+                <form action="/chart/" method="POST">
+                    <input type="submit" class="chart-button" value="BAR PLOT"><br/>
+                    <input type="hidden" name="type" value="bar">
+                    <div class="col-md-6 radio-list">
+                        <div class="axis">X</div>
+                        <div class="choice">
+                            <input type="radio" name="x" value="region"/>
+                            <label>Region</label><br/>
+                            <input type="radio" name="x" value="num_bd"/>
+                            <label>Number of Bedrooms</label><br/>
+                            <input type="radio" name="x" value="price_level"/>
+                            <label>Price Level</label><br/>
+                            <input type="radio" name="x" value="size_level"/>
+                            <label>Size Level</label><br/>
+                            <input type="hidden" name="x" value="" checked="checked"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="axis">Y</div>
+                        <div class="choice">
+                            <input type="radio" name="y" value="unit_price"/>
+                            <label>Unit Price</label><br/>
+                            <input type="radio" name="y" value="total_price"/>
+                            <label>Total Price</label><br/>
+                            <input type="radio" name="y" value="total_area"/>
+                            <label>Total Area</label><br/>
+                            <input type="hidden" name="y" value="" checked="checked"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="menu-detail">
+                <form action="/chart/" method="POST">
+                    <input type="submit" class="chart-button" value="SCATTER PLOT"><br/>
+                    <input type="hidden" name="type" value="scatter">
+                    <div class="col-md-6">
+                        <div class="axis"><strong>X</strong></div>
+                        <div class="choice">
+                            <input type="radio" name="x" value="density"/>
+                            <label>Density</label><br/>
+                            <input type="radio" name="x" value="gdp"/>
+                            <label>GDP Per Capita</label><br/>
+                            <input type="hidden" name="x" value="" checked="checked"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="axis"><strong>Y</strong></div>
+                        <div class="choice">
+                            <input type="radio" name="y" value="unit_price"/>
+                            <label>Unit Price</label><br/>
+                            <input type="hidden" name="y" value="" checked="checked"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-8 pic">
+            {{ div|safe }}
+        </div>
+    </div>
+
+    <div class="row border">
+        <div class="col-md-1 left-panel">
+            <p class="option left-panel">
+                <a href="/" class="option text">HOME</a>
+            </p>
+        </div>
+        <div class="col-md-1 left-panel">
+            <p class="option left-panel">
+                <a href="/search" class="option text">SEARCH</a>
+            </p>
+        </div>
+        <div class="col-md-4 left-panel">
+            <p></p>
+        </div>
+        <div class="col-md-6 right-panel">
+            <p class="right-panel text">XINYU YAN, APR 2018</p>
+        </div>
+    </div>
+
+</body>
+</html>

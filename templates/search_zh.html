@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cmn-Hans">
 <head>
     <meta charset="UTF-8">
     <title>Search Page</title>
@@ -57,7 +57,7 @@
         padding-left: 20px;
     }
     .data-table {
-        text-align: center;
+        text-align: center
     }
 
 </style>
@@ -67,15 +67,15 @@
             <p></p>
         </div>
         <div class="col-md-6 right-panel">
-            <p><a href="/search/zh" class="right-panel text-zh">中文</a></p>
+            <p><a href="/search" class="right-panel text">ENGLISH</a></p>
         </div>
     </div>
 
     <div class="row checkbox-area">
         <div class="col-md-1 left-panel">
-            <p class="group-title"><strong>REGION</strong></p>
+            <p class="group-title">区 域</p>
             <br/>
-            <button class="button-search" onclick="search()">SEARCH</button>
+            <button class="button-search" onclick="search()">搜 索</button>
         </div>
         <div class="col-md-11">
             <table>
@@ -85,7 +85,7 @@
                     <td class="header-td">
                         {% if index == 0 %}
                         <input type="checkbox" name="ALL" id="ALL"/>
-                        <label>Select All</label>
+                        <label>全选</label>
                         {% else %}
                         <input type="checkbox" name="region" id="{{ index }}"/>
                         <label>{{ region_dict[index] }}</label>
@@ -109,19 +109,19 @@
     <div class="row border">
         <div class="col-md-1 left-panel">
             <p class="option left-panel">
-                <a href="/" class="option text">HOME</a>
+                <a href="/zh/" class="option text">主页</a>
             </p>
         </div>
         <div class="col-md-1 left-panel">
             <p class="option left-panel">
-                <a href="/chart" class="option text">CHART</a>
+                <a href="/chart/zh/" class="option text">作图</a>
             </p>
         </div>
         <div class="col-md-4 left-panel">
             <p></p>
         </div>
         <div class="col-md-6 right-panel">
-            <p class="right-panel text">XINYU YAN, APR 2018</p>
+            <p class="right-panel text">严心宇，2018年4月</p>
         </div>
     </div>
 
@@ -138,17 +138,17 @@
         $("input[name='region']:checked").each(function(){
             id_array.push($(this).attr("id"))
         })
-
         if (typeof(table_obj) != "undefined"){
             table_obj.destroy();
         }
 
         table_obj = $("#search-table").DataTable({
             ajax: {
-                url: "/search/data/?region_lst=" + id_array.join(","),
+                url: "/search/data/zh/?region_lst=" + id_array.join(","),
                 dataSrc: ""
             },
             columns: [
+
                 {
                     data: "URL",
                     title: "URL",
@@ -156,27 +156,32 @@
                 },
                 {
                     data: "Region",
-                    title: "Region",
+                    title: "区域",
                     className: "data-table"
                 },
                 {
-                    data: "NumOfBd",
-                    title: "NumOfBd",
+                    data: "Address",
+                    title: "小区",
                     className: "data-table"
                 },
                 {
-                    data: "TotalPriceUSD",
-                    title: "TotalPrice(KUSD)",
+                    data: "Style",
+                    title: "户型",
                     className: "data-table"
                 },
                 {
-                    data: "TotalAreaSqFt",
-                    title: "TotalArea(SqFt)",
+                    data: "TotalPriceCNY",
+                    title: "总价（万元）",
                     className: "data-table"
                 },
                 {
-                    data: "UnitPriceUSD",
-                    title: "UnitPrice(USD/SqFt)",
+                    data: "TotalAreaSqM",
+                    title: "面积（平米）",
+                    className: "data-table"
+                },
+                {
+                    data: "UnitPriceCNY",
+                    title: "单价（元/平米）",
                     className: "data-table"
                 },
             ],
