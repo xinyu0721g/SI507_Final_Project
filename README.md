@@ -99,7 +99,7 @@ python app.py
 
 ### Main functions
 
-#### get_avgs (db_name=DB_TEST, lang='zh', data='unit_price', group=None)
+### get_avgs (db_name=DB_TEST, lang='zh', data='unit_price', group=None)
 
 get average total_price/total_area/unit_price for each group (if group=None, get data for all posts)
 
@@ -120,7 +120,7 @@ print(get_avgs(lang='en', data='unit_price', group='size_level'))
 {1: 1591.77, 2: 1136.36, 3: 889.92, 5: 739.44, 4: 699.76}
 ```
 
-#### get_new_region_data(db_name=DB_NAME, lang='en', data='density')
+### get_new_region_data(db_name=DB_NAME, lang='en', data='density')
 
 get region information from RegionsNew table
 
@@ -139,7 +139,7 @@ print(get_new_region_data(lang='en', data='density'))
 {10: 83.91, 12: 82.9, 11: 74.01, 5: 60.08, 7: 56.2, 3: 51.35, 6: 46.73, 4: 17.84, 2: 17.68, 1: 12.29, 9: 8.81, 8: 7.56, 13: 4.66, 14: 4.4, 15: 3.37, 16: 1.23}
 ```
 
-#### table_get_housing_posts(db_name=DB_NAME, lang='zh', group=None, group_id=None)
+### table_get_housing_posts(db_name=DB_NAME, lang='zh', group=None, group_id=None)
 get a list of house info dictionaries by group
 
 **parameters:**
