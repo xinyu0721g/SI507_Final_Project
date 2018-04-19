@@ -494,10 +494,10 @@ if __name__ == '__main__':
     # print(get_size_level_dict(lang='en'))
     # print(get_avgs(lang='en', data='unit_price', group='size_level'))
     # print(get_new_region_data(lang='en', data='density'))
-    house_post_lst = table_get_housing_posts(lang='en', group='region', group_id=3)
-    if house_post_lst is not None:
-        print(len(house_post_lst))
-        print(house_post_lst[0])
-    else:
-        print('None')
+    # house_post_lst = table_get_housing_posts(lang='en', group='region', group_id=3)
+    # if house_post_lst is not None:
+    #     print(len(house_post_lst))
+    #     print(house_post_lst[0])
+    # else:
+    #     print('None')
     pass
