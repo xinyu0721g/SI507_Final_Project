@@ -1,0 +1,45 @@
+.left-panel {
+    position: relative;
+    top: 2px;
+    padding-left: 20px;
+    text-align: left;
+}
+.right-panel {
+    position: relative;
+    top: 2px;
+    padding-right: 20px;
+    text-align: right;
+}
+.table {
+    height: 499px;
+}
+.border {
+    background-color: #000B29;
+    height: 27px
+}
+.text {
+    color: #9A9EAB;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+.header-td {
+    width: 220px;
+    padding-left: 30px;
+}
+.group-title {
+    font-size: 20px;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+.button-search {
+    background-color: #2C3853;
+    color: #FFFFFF;
+    border: 0
+}
+.checkbox-area {
+    position: relative;
+    top: 10px;
+    height: 130px;
+    padding-left: 20px
+}
+.data-table {
+    text-align: center
+}

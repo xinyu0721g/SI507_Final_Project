@@ -1,0 +1,54 @@
+.left-panel {
+    position: relative;
+    top: 2px;
+    padding-left: 20px;
+    text-align: left;
+}
+.right-panel {
+    position: relative;
+    top: 2px;
+    padding-right: 20px;
+    text-align: right;
+}
+.border {
+    background-color: #000B29;
+    height: 27px
+}
+.text {
+    color: #9A9EAB;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+.main-body {
+    height: 649px
+}
+.pic {
+    height: 600px
+}
+
+.menu {
+    height: 643px;
+    background-color: #DCEDFF
+}
+.menu-detail {
+    height: 50%
+}
+.chart-button {
+    width: 422px;
+    height: 100px;
+    background-color: #2C3853;
+    color: #FFFFFF;
+    border: 0;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 20px
+}
+.axis {
+    position: relative;
+    top: 15px;
+    height: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+.choice {
+    position: relative;
+    top: 30px;
+}

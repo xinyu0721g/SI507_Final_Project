@@ -1,0 +1,39 @@
+body {
+        background-image: url("/static/img/shanghai4.jpg");
+        background-size: 1400px;
+        background-repeat: no-repeat;
+        background-position: -60px -170px
+    }
+.header {
+    height: 100px
+}
+.title {
+    color: #000B29;
+    font-weight: bold;
+    font-family: "Lucida Console", Monaco, monospace;
+    text-align: left;
+    padding-left: 30px
+}
+.left-panel {
+    position: relative;
+    top: 2px;
+    padding-left: 20px;
+    text-align: left
+}
+.right-panel {
+    position: relative;
+    top: 2px;
+    padding-right: 20px;
+    text-align: right
+}
+.img {
+    height: 549px
+}
+.border {
+    background-color: #000B29;
+    height: 27px
+}
+.text {
+    color: #9A9EAB;
+    font-family: "Lucida Console", Monaco, monospace;
+}
