@@ -3,7 +3,7 @@
 This project creates a Flask app where users can search for basic information of second-hand housing markets in Shanghai, China. Both English and Chinese languages are supported.
 <br>
 
-## acknowledgement
+## Acknowledgement
 First of all, I would like to show my great gratitude to [Tongyan Xu](https://github.com/TongyanX) who offered me a lot of help with my project, especially building html templates (dataTable, javascript, css, etc.).
 
 ## How To Use
@@ -15,6 +15,7 @@ First of all, I would like to show my great gratitude to [Tongyan Xu](https://gi
 ```
 virtualenv venv
 source venv/bin/activate
+pip install -r requirements.txt
 python app.py
 ```
 
