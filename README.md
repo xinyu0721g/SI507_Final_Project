@@ -8,7 +8,7 @@ First of all, I would like to show my great gratitude to [Tongyan Xu](https://gi
 
 ## How To Use
 
-### Option1: Heroku app [LINK](https://blooming-lowlands-79795.herokuapp.com/)
+### Option1: Heroku app [LINK](https://sh-housing-apr-18.herokuapp.com/)
 
 ### Option2: Run at Terminal
 
