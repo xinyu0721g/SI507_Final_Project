@@ -88,7 +88,7 @@ python app.py
 - you would have two options: rebuild database or not
 - if you choose rebuild database, there would be two following options:
     - rebuild a test database: this would rebuild a database including 30 records of housing posts on the first page of Fang.com
-    - rebuild a complete database: this would rebuild a database including all 2855 records of housing posts on all pages of Fang.com (WARNING: This process might take A LOT OF time!
+    - rebuild a complete database: this would rebuild a database including all 2855 records of housing posts on all pages of Fang.com (WARNING: This process might take A LOT OF time!)
 
 ### Unit Testing
 - There is a separate test file called database_test.py in database folder
