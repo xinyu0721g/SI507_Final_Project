@@ -175,15 +175,15 @@ else:
 ### Flask app (6 web pages in total)
 There are three main pages and each page is supported both in English and Chinese.
 
-**index page**
+- **index page**
 Welcome page, user can be redirected to search/chart pages through buttons at page bottom or change to Chinese language.
 
-**search page**
+- **search page**
 User can search for housing posts in any region in Shanghai.
 
-**chart page**
+- **chart page**
 User can plot bar chart or scatter chart to get a general view of Shanghai second-hand housing market.
 
 ## Author
 
-* **Xinyu Yan** - [xinyu0721g](https://github.com/xinyu0721g)
+- **Xinyu Yan** - [xinyu0721g](https://github.com/xinyu0721g)
