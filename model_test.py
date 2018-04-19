@@ -4,12 +4,12 @@ from model import *
 
 class TestModel(unittest.TestCase):
 
-    def test_get_avg_by_group(self):
+    def test_get_avgs(self):
         dict1 = get_avgs(db_name=DB_TEST, lang='zh')
-        self.assertEqual(dict1['all'], 68848.5)
+        self.assertEqual(dict1[0], 68848.5)
 
         dict2 = get_avgs(db_name=DB_TEST, lang='zh', data='unit_price', group='region')
-        self.assertEqual(dict2['黄浦'], 126636.83)
+        self.assertEqual(dict2[12], 126636.83)
         self.assertLessEqual(len(dict2), 17)
 
         dict3 = get_avgs(db_name=DB_TEST, lang='zh', data='unit_price', group='price_level')
@@ -30,14 +30,14 @@ class TestModel(unittest.TestCase):
 
     def test_get_region_data(self):
         dict1 = get_new_region_data(lang='zh')
-        self.assertEqual(dict1['虹口'], 3.24)
+        self.assertEqual(dict1[10], 3.24)
 
         dict2 = get_new_region_data(data='gdp_per_capita')
         self.assertIsNone(dict2)
 
         dict3 = get_new_region_data(lang='zh', data='gdp')
-        self.assertEqual(dict3['黄浦'], 30.77)
-        self.assertEqual(dict3['静安'], 15.57)
+        self.assertEqual(dict3[12], 30.77)
+        self.assertEqual(dict3[11], 15.57)
 
 
 unittest.main()
