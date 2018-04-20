@@ -3,9 +3,6 @@
 This project creates a Flask app where users can search for basic information of second-hand housing markets in Shanghai, China. Both English and Chinese languages are supported.
 <br>
 
-## Acknowledgement
-First of all, I would like to show my great gratitude to [Tongyan Xu](https://github.com/TongyanX) who offered me a lot of help with my project, especially building html templates (dataTable, javascript, css, etc.).
-
 ## How To Use
 
 ### Option1: Heroku app [LINK](https://sh-housing-apr-18.herokuapp.com/)
@@ -187,3 +184,6 @@ User can plot bar chart or scatter chart to get a general view of Shanghai secon
 ## Author
 
 - **Xinyu Yan** - [xinyu0721g](https://github.com/xinyu0721g)
+
+## Acknowledgement
+Above all, I would like to show my great gratitude to [Tongyan Xu](https://github.com/TongyanX) who offered me a lot of help with my project, especially building html templates (dataTable, javascript, css, etc.).
