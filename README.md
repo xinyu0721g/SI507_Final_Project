@@ -229,7 +229,7 @@ User can plot bar chart or scatter chart to get a general view of Shanghai secon
 
 ## Author
 
-- **Xinyu Yan** - [xinyu0721g](https://github.com/xinyu0721g)
+- **Xinyu Yan** ([xinyu0721g](https://github.com/xinyu0721g))
 
 ## Acknowledgement
-Above all, I would like to show my great gratitude to [Tongyan Xu](https://github.com/TongyanX) who offered me a lot of help with my project, especially building html templates (dataTable, javascript, css, etc.).
+Above all, I would like to show my great gratitude to Tongyan Xu ([TongyanX](https://github.com/TongyanX)) who offered me a lot of help with my project, especially building html templates (dataTable, javascript, css, etc.).
