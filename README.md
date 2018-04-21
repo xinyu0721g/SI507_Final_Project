@@ -88,7 +88,8 @@ python app.py
     - rebuild a complete database: this would rebuild a database including all 2855 records of housing posts on all pages of Fang.com (WARNING: This process might take A LOT OF time!)
 
 ### Unit Testing
-- There is a separate test file called database_test.py in database folder
+**step1** cd to database folder
+**step2** run database_test.py
 - This test file tests whether tables in database are correctly built and tables are correctly linked to each other
 - 2 test cases and 5 assertions
 - You need to cd to database folder to run this unittest
@@ -165,6 +166,8 @@ else:
 ```
 
 ### Unit Testing
+**step1** cd to root repo
+**step2** run model_test.py
 - Test the functionality of functions in model.py
 - 8 test case and 22 assertions
 
