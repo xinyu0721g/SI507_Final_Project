@@ -183,12 +183,12 @@ User can search for housing posts in any region in Shanghai.
 User can plot bar chart or scatter chart to get a general view of Shanghai second-hand housing market.
 
 ## Project Structure
-### main: *main app file and data processing files
+### main: (main app file and data processing files)
 - app.py
 - model.py
 - model_test.py
 - charts_plotly.py
-### database: *fetchdata, build database
+### database: (fetchdata, build database)
 - fetchdata.py
 - database.py
 - database_test.py
@@ -201,14 +201,14 @@ User can plot bar chart or scatter chart to get a general view of Shanghai secon
 - csv:
     - sh_regions_new.csv
     - sh_regions_Fang.csv
-### templates: *html templates
+### templates: (html templates)
 - search.html
 - search_zh.html
 - index.html
 - index_zh.html
 - chart.html
 - chart_zh.html
-### static: *static files 
+### static: (static files)
 - css:
     - index.css
     - search.css
@@ -217,7 +217,7 @@ User can plot bar chart or scatter chart to get a general view of Shanghai secon
     - table.js
     - table_zh.js
 - img
-### charts: *sample charts
+### charts: (sample charts)
 - bar
 - scatter
 
