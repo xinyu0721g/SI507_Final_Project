@@ -97,13 +97,13 @@ python app.py
 
 ### Main functions
 
-### get_avgs (db_name=DB_TEST, lang='zh', data='unit_price', group=None)
+### get_avgs (db_name=DB_NAME, lang='en', data='unit_price', group=None)
 
 get average total_price/total_area/unit_price for each group (if group=None, get data for all posts)
 
 **parameters:**
-- db_name: database name
-- lang: language, default Chinese (options: zh(Chinese)/en(English))
+- db_name: database name, default DB_NAME
+- lang: language, default English (options: zh(Chinese)/en(English))
 - data: returned data column, default unit_price (options: total_price/total_area/unit_price)
 - group: group method default None (options: None/region/num_bd/size_level/price_level)
 
@@ -137,7 +137,7 @@ print(get_new_region_data(lang='en', data='density'))
 {10: 83.91, 12: 82.9, 11: 74.01, 5: 60.08, 7: 56.2, 3: 51.35, 6: 46.73, 4: 17.84, 2: 17.68, 1: 12.29, 9: 8.81, 8: 7.56, 13: 4.66, 14: 4.4, 15: 3.37, 16: 1.23}
 ```
 
-### table_get_housing_posts(db_name=DB_NAME, lang='zh', group=None, group_id=None)
+### table_get_housing_posts(db_name=DB_NAME, lang='en', group=None, group_id=None)
 get a list of house info dictionaries by group
 
 **parameters:**
@@ -166,7 +166,7 @@ else:
 
 ### Unit Testing
 - Test the functionality of functions in model.py
-- 2 test case and 15 assertions
+- 8 test case and 22 assertions
 
 ## Data Presentation
 
@@ -183,12 +183,12 @@ User can search for housing posts in any region in Shanghai.
 User can plot bar chart or scatter chart to get a general view of Shanghai second-hand housing market.
 
 ## Project Structure
-### main:
+### main: *main app file and data processing files
 - app.py
 - model.py
 - model_test.py
 - charts_plotly.py
-### database:
+### database: *fetchdata, build database
 - fetchdata.py
 - database.py
 - database_test.py
@@ -201,14 +201,14 @@ User can plot bar chart or scatter chart to get a general view of Shanghai secon
 - csv:
     - sh_regions_new.csv
     - sh_regions_Fang.csv
-### templates:
+### templates: *html templates
 - search.html
 - search_zh.html
 - index.html
 - index_zh.html
 - chart.html
 - chart_zh.html
-### static:
+### static: *static files 
 - css:
     - index.css
     - search.css
@@ -217,6 +217,9 @@ User can plot bar chart or scatter chart to get a general view of Shanghai secon
     - table.js
     - table_zh.js
 - img
+### charts: *sample charts
+- bar
+- scatter
 
 ## Author
 
