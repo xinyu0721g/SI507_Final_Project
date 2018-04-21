@@ -329,7 +329,7 @@ def get_new_region_data(db_name=DB_NAME, lang='en', data='density'):
     return return_dict
 
 
-def table_get_housing_posts(db_name=DB_NAME, lang='zh', group=None, group_id=None):
+def table_get_housing_posts(db_name=DB_NAME, lang='en', group=None, group_id=None):
     """
     get a list of house info dictionaries by group
     :param db_name: database name, default DB_NAME
