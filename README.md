@@ -94,7 +94,6 @@ python app.py
 **step2** run database_test.py
 - This test file tests whether tables in database are correctly built and tables are correctly linked to each other
 - 2 test cases and 5 assertions
-- You need to cd to database folder to run this unittest
 
 ## Data Processing
 
